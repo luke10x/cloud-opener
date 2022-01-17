@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/ListFragment">
+
+    <fragment
+        android:id="@+id/ListFragment"
+        android:name="com.example.cloudopener.ListFragment"
+        android:label="@string/list_fragment_label"
+        tools:layout="@layout/fragment_list">
+
+        <action
+            android:id="@+id/action_ListFragment_to_ExchangeFragment"
+            app:destination="@id/ExchangeFragment" />
+
+        <action
+            android:id="@+id/action_ListFragment_to_SecondFragment"
+            app:destination="@id/SecondFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/ExchangeFragment"
+        android:name="com.example.cloudopener.ExchangeFragment"
+        android:label="@string/exchange_fragment_label"
+        tools:layout="@layout/fragment_excahnge">
+
+        <action
+            android:id="@+id/action_ExchangeFragment_to_ListFragment"
+            app:destination="@id/ListFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/SecondFragment"
+        android:name="com.example.cloudopener.SecondFragment"
+        android:label="@string/second_fragment_label"
+        tools:layout="@layout/fragment_second">
+
+        <action
+            android:id="@+id/action_SecondFragment_to_ListFragment"
+            app:destination="@id/ListFragment" />
+    </fragment>
+</navigation>

@@ -1,0 +1,7 @@
+{
+  "delegatePattern": "true",
+  "basePackage": "dev.luke10x.cloudopener.cloudlinkexchange",
+  "modelPackage": "dev.luke10x.cloudopener.cloudlinkexchange.model",
+  "apiPackage": "dev.luke10x.cloudopener.cloudlinkexchange.api",
+  "configPackage": "dev.luke10x.cloudopener.cloudlinkexchange.config"
+}

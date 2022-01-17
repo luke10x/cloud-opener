@@ -1,0 +1,212 @@
+openapi: "3.0.0"
+info:
+  version: 1.0.0
+  title: CloudOpener API
+  license:
+    name: MIT
+servers:
+  - url: http://cloudopener.swagger.io/v1
+paths:
+  /cloudlink:
+    post:
+      summary: create a new cloudlink
+      operationId: createCloudlink
+      responses:
+        '201':
+          description: Just created this cloudlink.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Cloudlink"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /cloudlink/{code}:
+    parameters:
+      - name: code
+        in: path
+        required: true
+        description: The code of the cloudlink to retrieve
+        schema:
+          type: Uuid
+    get:
+      summary: Polls cloudlink until it has an exchange
+      operationId: getCloudlink
+      responses:
+        '200':
+          description: Cloudlink. Does it have an exchange connected, if so - stop polling this!
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Cloudlink"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    patch:
+      summary: update the cloudlink
+      operationId: updateCloudlink
+      requestBody:
+        description: Add updates to this cloudlink
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CloudlinkPatch'
+      responses:
+        '200':
+          description: Update a cludlink (for example add exhangeHandle)
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CloudlinkPatch"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /exchange:
+    post:
+      summary: create a new exchange
+      operationId: createExchange
+      responses:
+        '201':
+          description: Just created this exchange.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Exchange"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /exchange/{handle}:
+    parameters:
+      - name: handle
+        in: path
+        required: true
+        description: The handle of the exhchange to retrieve
+        schema:
+          type: Uuid
+    get:
+      parameters:
+        - name: from
+          in: query
+          description: What is the earliest time since when the messages are filtered
+          required: false
+          schema:
+            type: integer
+            format: int32
+      summary: Polls exchange
+      operationId: getExchange
+      responses:
+        '200':
+          description: Exchange
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Exchange"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /exchange/{handle}/messages:
+    post:
+      parameters:
+        - name: handle
+          in: path
+          required: true
+          description: The handle of the exhchange to retrieve
+          schema:
+            type: Uuid
+      summary: add new messaged
+      operationId: addMessage
+      requestBody:
+        description: Add a message in this exchange
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Message'
+      responses:
+        '201':
+          description: Just added a message to exchange
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Message"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+components:
+  schemas:
+    Cloudlink:
+      required:
+        - code
+      properties:
+        code:
+          $ref: '#/components/schemas/Uuid'
+        exchangeHandle:
+          $ref: '#/components/schemas/Uuid'
+    CloudlinkPatch:
+      properties:
+        exchangeHandle:
+          $ref: '#/components/schemas/Uuid'
+    Exchange:
+      required:
+        - handle
+        - messages
+      properties:
+        handle:
+          $ref: '#/components/schemas/Uuid'
+        messages:
+          $ref: '#/components/schemas/Messages'
+    Messages:
+      type: array
+      items:
+        $ref: "#/components/schemas/Message"
+    Message:
+      required:
+        - type
+        - body
+      properties:
+        type:
+          type: string
+          maxLength: 36
+        body:
+          type: string
+        timestamp:
+          type: integer
+          format: int64
+    Uuid:
+      type: string
+      pattern: '^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$'
+      # the regex above limits the length;
+      # however, some tools might require explicit settings:
+      minLength: 36
+      maxLength: 36
+    Error:
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string
