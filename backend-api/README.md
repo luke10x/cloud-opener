@@ -52,3 +52,12 @@ where the messageBody is something like:
         body: "hello, how are you?"
         timestamp: 1643565582
     }
+
+
+### Deploy BE API on Heroku:
+
+heroku buildpacks:add -a cloudopener-api -i 1 https://github.com/lstoll/heroku-buildpack-monorepo
+heroku buildpacks:add -a cloudopener-api https://github.com/heroku/heroku-buildpack-gradle.git
+heroku config:set -a cloudopener-api GRADLE_TASK=build
+heroku config:set -a cloudopener-api APP_BASE=backend-api
+git push heroku-cloudopener-api main 

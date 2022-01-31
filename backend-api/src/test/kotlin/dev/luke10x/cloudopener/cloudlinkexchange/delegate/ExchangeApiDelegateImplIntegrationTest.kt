@@ -34,10 +34,10 @@ class ExchangeApiDelegateImplIntegrationTest {
 
     @Test
     @DisplayName("""
-        when a client POSTs an exchange
-        then the exchange should be CREATED
-        and (in the response) the exchange should have a handle
-        and it should have 0 messages
+        When a client POSTs an exchange;
+        Then the exchange should be CREATED,
+        and (in the response) the exchange should have a handle,
+        and it should have 0 messages.
     """)
     fun whenPost_thenIsCreated() {
         val req = post(EXCHANGE_PATH)
@@ -52,11 +52,11 @@ class ExchangeApiDelegateImplIntegrationTest {
 
     @Test
     @DisplayName("""
-        given a new exchange is created
-        when a client GETs the exchange
-        then the exchange should be retrieved OK
-        and the exchange should have a handle
-        and it should have 0 messages
+        Given a new exchange is created;
+        When a client GETs the exchange;
+        Then the exchange should be retrieved OK,
+        and the exchange should have a handle,
+        and it should have 0 messages.
     """)
     fun whenGet_thenIsOk() {
         val exchangeHandle = "72773929-bb0f-4cd2-8458-850fd38984b8"
@@ -76,11 +76,11 @@ class ExchangeApiDelegateImplIntegrationTest {
 
     @Test
     @DisplayName("""
-        given a new exchange is there
-        and it has 2 messages
-        when a client GETs the exchange
-        then the exchange should be retrieved OK
-        and it should have 2 messages
+        Given a new exchange is there,
+        and it has 2 messages;
+        When a client GETs the exchange;
+        Then the exchange should be retrieved OK,
+        and it should have 2 messages.
     """)
     fun whenGetAndHasMoreMessages_thenIsOk() {
         val exchangeHandle = "72773929-bb0f-4cd2-8458-850fd38984b8"
@@ -102,9 +102,9 @@ class ExchangeApiDelegateImplIntegrationTest {
 
     @Test
     @DisplayName("""
-        given no exchange is created
-        when a client GETs an exchange
-        then the exchange should be NOT FOUND
+        Given no exchange is created;
+        When a client GETs an exchange;
+        Then the exchange should be NOT FOUND.
     """)
     fun whenGetNotExisting_thenIsNotFound() {
         val exchangeHandle = "0bde0e30-d692-43fc-b38e-7bfc624b6c7a"
@@ -117,9 +117,9 @@ class ExchangeApiDelegateImplIntegrationTest {
 
     @Test
     @DisplayName("""
-        given a new exchange is there
-        when a client POSTS a message to the exchange
-        then the exchange should have 1 message
+        Given a new exchange is there;
+        When a client POSTS a message to the exchange;
+        Then the exchange should have 1 message.
     """)
     fun whenPostMessate_thenIsNotFound() {
         val exchangeHandle = "91129d54-f195-40c1-8e1e-e30bf62eb808"

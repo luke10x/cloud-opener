@@ -1,4 +1,5 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+//import org.gradle.jvm.tasks.Jar
 
 plugins {
 	id("org.springframework.boot") version "2.6.3"
@@ -9,11 +10,13 @@ plugins {
 	kotlin("plugin.jpa") version "1.6.10"
 
 	id("org.openapi.generator") version "5.3.1"
+
+	id("com.github.johnrengelman.shadow") version "7.0.0"
 }
 
 group = "dev.luke10x.cloudopener"
 version = "0.0.1-SNAPSHOT"
-java.sourceCompatibility = JavaVersion.VERSION_11
+java.sourceCompatibility = JavaVersion.VERSION_17
 
 configurations {
 	compileOnly {
@@ -44,7 +47,7 @@ dependencies {
 tasks.withType<KotlinCompile> {
 	kotlinOptions {
 		freeCompilerArgs = listOf("-Xjsr305=strict")
-		jvmTarget = "11"
+		jvmTarget = "17"
 	}
 }
 
@@ -75,5 +78,31 @@ configure<SourceSetContainer> {
 
 tasks.withType<KotlinCompile> {
 	dependsOn("openApiGenerate")
-	kotlinOptions.jvmTarget = "11"
+	kotlinOptions.jvmTarget = "17"
 }
+
+//val fatJar = task("fatJar", type = Jar::class) {
+//	baseName = "${project.name}-fat"
+//	manifest {
+//		attributes["Implementation-Title"] = "Gradle Jar File Example"
+//		attributes["Implementation-Version"] = version
+//		attributes["Main-Class"] = "dev.luke10x.cloudopener.cloudlinkexchange.BackendApiApplication"
+//	}
+//	from(configurations.runtimeClasspath.get().map({ if (it.isDirectory) it else zipTree(it) }))
+//	with(tasks.jar.get() as CopySpec)
+//}
+//plugins {
+//}
+tasks{
+	shadowJar {
+		manifest {
+			attributes(Pair("Main-Class", "dev.luke10x.cloudopener.cloudlinkexchange.BackendApiApplication"))
+		}
+	}
+}
+
+//tasks {
+//	"build" {
+//		dependsOn(fatJar)
+//	}
+//}

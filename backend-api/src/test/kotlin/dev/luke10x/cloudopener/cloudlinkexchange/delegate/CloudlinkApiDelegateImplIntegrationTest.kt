@@ -31,10 +31,10 @@ class CloudlinkApiDelegateImplIntegrationTest {
 
     @Test
     @DisplayName("""
-        when a client POSTs a cloudlink
-        then the cloudlink should be CREATED
-        and (in the response) the cloudlink should have a code
-        but it should not have exchangeHandle
+        When a client POSTs a cloudlink;
+        Then the cloudlink should be CREATED,
+        and (in the response) the cloudlink should have a code,
+        but it should not have exchangeHandle.
     """)
     fun whenPost_thenIsCreated() {
         val req = post(CLOUDLINK_PATH)
@@ -48,11 +48,11 @@ class CloudlinkApiDelegateImplIntegrationTest {
 
     @Test
     @DisplayName("""
-        given a new cloudlink is created
-        when a client GETs the cloudlink
-        then the cloudlink should be retrieved OK
-        and the cloudlink should have a code
-        but it should not have exchangeHandle
+        Given a new cloudlink is created;
+        When a client GETs the cloudlink;
+        Then the cloudlink should be retrieved OK,
+        and the cloudlink should have a code,
+        but it should not have exchangeHandle.
     """)
     fun whenGet_thenIsOk() {
         val cloudlinkCode = "72773929-bb0f-4cd2-8458-850fd38984b8"
@@ -71,9 +71,9 @@ class CloudlinkApiDelegateImplIntegrationTest {
 
     @Test
     @DisplayName("""
-        given no cloudlink is created
-        when a client GETs a cloudlink
-        then the cloudlink should be NOT FOUND
+        Given no cloudlink is created;
+        When a client GETs a cloudlink;
+        Then the cloudlink should be NOT FOUND.
     """)
     fun whenGetNotExisting_thenIsNotFound() {
         val cloudlinkCode = "91129d54-f195-40c1-8e1e-e30bf62eb808"
@@ -86,9 +86,9 @@ class CloudlinkApiDelegateImplIntegrationTest {
 
     @Test
     @DisplayName("""
-        given a new cloudlink is there
-        when a client sends a PATCH to the cloudlink
-        then the exchange should have exchange handle set
+        Given a new cloudlink is there;
+        When a client sends a PATCH to the cloudlink;
+        Then the exchange should have exchange handle set.
     """)
     fun whenPatch_thenOk() {
         val cloudlinkCode = "91129d54-f195-40c1-8e1e-e30bf62eb808"
