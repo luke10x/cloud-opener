@@ -1,0 +1,11 @@
+
+.qrWrapper {
+  display: flex;
+  flex-direction: column;
+  
+  width: 250px;
+}
+
+#qrButton {
+  margin-top: 10px;
+}
