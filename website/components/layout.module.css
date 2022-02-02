@@ -13,3 +13,7 @@
 .backToHome {
   margin: 3rem 0 0;
 }
+
+h1 span.highlight {
+  color: #5599ff;
+}

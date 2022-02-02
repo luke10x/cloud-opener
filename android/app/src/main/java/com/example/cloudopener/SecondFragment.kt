@@ -7,7 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.example.cloudopener.databinding.FragmentSecondBinding
-import java.util.*
+import org.openapitools.client.apis.DefaultApi
+import org.openapitools.client.infrastructure.ApiClient
+import org.openapitools.client.models.CloudlinkPatch
 
 /**
  * A simple [Fragment] subclass as the second destination in the navigation.
@@ -28,6 +30,20 @@ class SecondFragment : Fragment() {
                 val msg = "🚩 value- $scannedValue"
                 System.out.println(msg)
             }
+
+            val api = DefaultApi("http://10.0.2.2:8080/v1")
+
+            // Get scanned cloudlink
+            val cloudlink = api.getCloudlink(scannedValue)
+
+            // Create a new Exchange
+            val exchange = api.createExchange()
+
+            // Patch the Cloudlink with an Exchange
+            val patch = CloudlinkPatch(exchange.handle)
+            api.updateCloudlink(cloudlink.code, patch)
+
+            System.out.println("🌵 Exchange added to cloudlink, clients should stop polling the cloudlink")
         }
     }
 

@@ -2,8 +2,8 @@
 .qrWrapper {
   display: flex;
   flex-direction: column;
-  
-  width: 250px;
+  align-items: center;
+  justify-content: center;
 }
 
 #qrButton {

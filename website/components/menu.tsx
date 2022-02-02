@@ -1,10 +1,10 @@
 import styles from './menu.module.css'
 import Link from 'next/link'
 
-export default function Menu({ children, type }) {
+export default function Menu() {
   return (
     <div>
-      <Link href="/">
+      <Link href="/posts">
         <a>dsfs</a>
       </Link>
     </div>

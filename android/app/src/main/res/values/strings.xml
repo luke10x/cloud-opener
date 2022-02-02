@@ -2,9 +2,9 @@
     <string name="app_name">Sharer for Android</string>
     <string name="action_settings">Settings</string>
     <!-- Strings used for fragments for navigation -->
-    <string name="list_fragment_label">List Fragment</string>
-    <string name="exchange_fragment_label">Ex Fragment</string>
-    <string name="second_fragment_label">Second Fragment</string>
+    <string name="list_fragment_label">Cloud Opener</string>
+    <string name="exchange_fragment_label">Exchange</string>
+    <string name="second_fragment_label">Scanning</string>
     <string name="next">Scan</string>
     <string name="open_exchange">To Exchange</string>
     <string name="previous">Previous</string>

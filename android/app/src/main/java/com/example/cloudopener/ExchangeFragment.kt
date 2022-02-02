@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
-import com.example.cloudopener.databinding.FragmentExcahngeBinding
+import com.example.cloudopener.databinding.FragmentExchangeBinding
 import com.google.android.material.snackbar.Snackbar
 
 /**
@@ -14,7 +14,7 @@ import com.google.android.material.snackbar.Snackbar
  */
 class ExchangeFragment : Fragment() {
 
-    private var _binding: FragmentExcahngeBinding? = null
+    private var _binding: FragmentExchangeBinding? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -28,7 +28,7 @@ class ExchangeFragment : Fragment() {
             savedInstanceState: Bundle?
     ): View? {
 
-        _binding = FragmentExcahngeBinding.inflate(inflater, container, false)
+        _binding = FragmentExchangeBinding.inflate(inflater, container, false)
 
         binding.fab.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)

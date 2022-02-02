@@ -5,10 +5,16 @@ import utilStyles from '../styles/utils.module.css'
 import Link from 'next/link'
 import Menu from './menu'
 
-const name = 'Cloud Opener'
-export const siteTitle = 'Next.js Sample Website'
+const siteTitleName = 'Cloud Opener'
+export const siteTitle = 'Cloud Opener Website'
 
-export default function Layout({ children, home }) {
+export default function Layout({
+  children,
+  home
+}: {
+  children: React.ReactNode
+  home?: boolean
+}) {
   return (
     <div className={styles.container}>
       <Head>
@@ -21,7 +27,7 @@ export default function Layout({ children, home }) {
           property="og:image"
           content={`https://og-image.vercel.app/${encodeURI(
             siteTitle
-          )}.png?theme=light&md=0&fontSize=75px&images=https%3A%2F%2Fassets.vercel.com%2Fimage%2Fupload%2Ffront%2Fassets%2Fdesign%2Fnextjs-black-logo.svg`}
+          )}.png?theme=light&md=0&fontSize=75px&images=https%3A%2F%2Fassets.zeit.co%2Fimage%2Fupload%2Ffront%2Fassets%2Fdesign%2Fnextjs-black-logo.svg`}
         />
         <meta name="og:title" content={siteTitle} />
         <meta name="twitter:card" content="summary_large_image" />
@@ -35,9 +41,9 @@ export default function Layout({ children, home }) {
               className={utilStyles.borderCircle}
               height={144}
               width={144}
-              alt={name}
+              alt={siteTitleName}
             />
-            <h1 className={utilStyles.heading2Xl}>{name}</h1>
+            <h1 className={utilStyles.heading2Xl}>CLOUD<span className={styles.highlight}>OPENER</span>.COM</h1>
           </>
         ) : (
           <>
@@ -45,25 +51,25 @@ export default function Layout({ children, home }) {
               <a>
                 <Image
                   priority
-                  src="/images/profile.jpg"
+                  src="/images/profile.png"
                   className={utilStyles.borderCircle}
                   height={108}
                   width={108}
-                  alt={name}
+                  alt={siteTitleName}
                 />
               </a>
             </Link>
             <h2 className={utilStyles.headingLg}>
               <Link href="/">
-                <a className={utilStyles.colorInherit}>{name}</a>
+                <a className={utilStyles.colorInherit}>{siteTitleName}</a>
               </Link>
             </h2>
           </>
         )}
-        <Menu />
       </header>
       <main>
         {children}
+        {/* <Menu /> */}
       </main>
       {!home && (
         <div className={styles.backToHome}>

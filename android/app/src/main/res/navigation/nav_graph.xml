@@ -24,7 +24,7 @@
         android:id="@+id/ExchangeFragment"
         android:name="com.example.cloudopener.ExchangeFragment"
         android:label="@string/exchange_fragment_label"
-        tools:layout="@layout/fragment_excahnge">
+        tools:layout="@layout/fragment_exchange">
 
         <action
             android:id="@+id/action_ExchangeFragment_to_ListFragment"
