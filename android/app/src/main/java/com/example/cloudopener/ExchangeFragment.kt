@@ -38,6 +38,11 @@ class ExchangeFragment : Fragment() {
         binding.webview.loadUrl("https://hidden-taiga-69915.herokuapp.com/")
         binding.webview.settings.javaScriptEnabled = true
 
+        (activity as MainActivity).exchangeHandle.let {
+            if (it != "")
+                binding.webview.loadUrl("http://10.0.2.2:3000/exchange/${it}")
+
+        }
         return binding.root
 
     }

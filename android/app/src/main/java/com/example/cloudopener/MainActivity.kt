@@ -14,6 +14,8 @@ import com.example.cloudopener.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
+    var exchangeHandle: String = ""
+
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
 

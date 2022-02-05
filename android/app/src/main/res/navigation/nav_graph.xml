@@ -33,9 +33,9 @@
 
     <fragment
         android:id="@+id/SecondFragment"
-        android:name="com.example.cloudopener.SecondFragment"
+        android:name="com.example.cloudopener.ScannerFragment"
         android:label="@string/second_fragment_label"
-        tools:layout="@layout/fragment_second">
+        tools:layout="@layout/fragment_scanner">
 
         <action
             android:id="@+id/action_SecondFragment_to_ListFragment"

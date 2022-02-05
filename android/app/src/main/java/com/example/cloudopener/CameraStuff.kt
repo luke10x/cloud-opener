@@ -6,7 +6,7 @@ import android.view.SurfaceHolder
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import com.example.cloudopener.databinding.FragmentSecondBinding
+import com.example.cloudopener.databinding.FragmentScannerBinding
 import com.google.android.gms.vision.CameraSource;
 import com.google.android.gms.vision.Detector
 import com.google.android.gms.vision.barcode.Barcode
@@ -15,7 +15,7 @@ import java.io.IOException
 
 class CameraStuff(
     private val activity: MainActivity,
-    private val binding: FragmentSecondBinding?,
+    private val binding: FragmentScannerBinding?,
 ) {
     val observers: ArrayList<ScannerObserver> = ArrayList()
 

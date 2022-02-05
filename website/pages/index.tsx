@@ -4,10 +4,11 @@ import Head from 'next/head'
 import Layout, { siteTitle } from '../components/layout'
 import utilStyles from '../styles/utils.module.css'
 import { getSortedPostsData } from '../lib/posts'
-import { createCloudlink, buildCloudlinkUrl, pollCloudlinkUntilExchangeFound} from '../lib/backend'
+import { createCloudlink, buildCloudlinkUrl, pollCloudlinkUntilExchangeHandleIsPresent} from '../lib/backend'
 import DownloadableQRCode from '../components/qrcode'
 import { useEffect, useState } from 'react'
 import { Cloudlink } from '../lib/generated/typescript-fetch-client'
+import { useRouter } from 'next/router'
 
 
 export default function Home({
@@ -20,13 +21,16 @@ export default function Home({
   }[]
 }) {
 
+  const router = useRouter()
+
   const [cloudlink, setCloudlink] = useState<Cloudlink>(undefined)
   useEffect(() => {
     createCloudlink().then((cloudlink) => {
       setCloudlink(cloudlink)
         console.log("starting to poll: ", cloudlink)
-        pollCloudlinkUntilExchangeFound(cloudlink).then((exchange) => {
-          console.log({exchange})
+        pollCloudlinkUntilExchangeHandleIsPresent(cloudlink).then((exchangeHandle) => {
+          console.log({exchangeHandle})
+          router.push(`/exchange/${exchangeHandle}`).catch(e => console.log('Failed to redirect route because: ', e))
         }).catch(() => cloudlink)
 
     }).catch(() => cloudlink)
@@ -43,7 +47,10 @@ export default function Home({
         </>}
         {!cloudlink && <div>Spinning circle...</div>}
 
-        <p>Every time you visit this website a cloud link is created. Scan this link with your camera enabled device and the exchange between this window and the device will be established!</p>
+        <p>
+          Every time you visit this website a cloud link is created.
+          Scan this link with your camera enabled device
+          and the exchange between this window and the device will be established!</p>
         <p>
           For the best experience use our app from {' '}
           <a href="https://nextjs.org/learn">Google Play store</a>

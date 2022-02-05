@@ -23,37 +23,40 @@ export const createCloudlink = async (): Promise<Cloudlink> => {
   });
 }
 
-export const pollCloudlinkUntilExchangeFound = (cloudlink: Cloudlink): Promise<Exchange> => {
+export const pollCloudlinkUntilExchangeHandleIsPresent = (cloudlink: Cloudlink): Promise<string> => {
 
-
-  const g = (resolve: (exchange: Exchange) => void, reject: (error: Error) => void) => {
+  const g = (resolve: (exchangeHandle: string) => void, reject: (error: Error) => void) => {
     const f = async () => {
       console.log("trying to fetch cloudlink")
       cloudlink = await getApi().getCloudlink(cloudlink).catch((e: Error) => {
         console.log("Creation of the cloudlink failed", e)
-        throw new Error("Failure to fetch a Cloudling to see if it has an Exchange handle")
+        throw new Error("Failure to fetch a Cloudlink to see if it has an Exchange handle")
       });
   
       if (cloudlink.exchangeHandle) {
         clearInterval(timerId); 
-        console.log("timer stopped")
-  
-  
-        const exchange = await getApi().getExchange({ handle: cloudlink.exchangeHandle}).catch((e: Error) => {
-          console.log("Creation of the cloudlink failed")
-          throw new Error("Failure trying to fetch Exchange")
-        });
-
-        resolve(exchange)
-  
+        console.log("Cloudlink has an exchange handle")
+        resolve(cloudlink.exchangeHandle)
       }
     }
   
     let timerId = setInterval(f, 2000);
   }
 
-  const exchangePromise: Promise<Exchange> = new Promise(g)
-  return exchangePromise;
+  const exchangeHandlePromise: Promise<string> = new Promise(g)
+  return exchangeHandlePromise;
 }
 
 export const buildCloudlinkUrl = (cloudlink: Cloudlink): string => `${config.BACKEND_BASE_URL}/cloudlink/${cloudlink.code}`
+
+export const pollExchange = async (exchangeHandle: string, onRefresh: (exchange: Exchange) => void) => {
+  const f = async () => {
+    const exchange = await getApi().getExchange({ handle: exchangeHandle}).catch((e: Error) => {
+      console.log("🐖 Fetching Exchange", e)
+      throw e
+    });
+    onRefresh(exchange);
+  }
+
+  let timerId = setInterval(f, 2000);
+}

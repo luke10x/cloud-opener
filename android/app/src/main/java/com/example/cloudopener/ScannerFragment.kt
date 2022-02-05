@@ -6,18 +6,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
-import com.example.cloudopener.databinding.FragmentSecondBinding
+import com.example.cloudopener.databinding.FragmentScannerBinding
 import org.openapitools.client.apis.DefaultApi
-import org.openapitools.client.infrastructure.ApiClient
 import org.openapitools.client.models.CloudlinkPatch
 
 /**
  * A simple [Fragment] subclass as the second destination in the navigation.
  */
-class SecondFragment : Fragment() {
+class ScannerFragment : Fragment() {
     private lateinit var cam: CameraStuff
 
-    private var _binding: FragmentSecondBinding? = null
+    private var _binding: FragmentScannerBinding? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -31,7 +30,7 @@ class SecondFragment : Fragment() {
                 System.out.println(msg)
             }
 
-            val api = DefaultApi("http://10.0.2.2:8080/v1")
+            val api = DefaultApi(Config.API_BASE_PATH)
 
             // Get scanned cloudlink
             val cloudlink = api.getCloudlink(scannedValue)
@@ -43,6 +42,8 @@ class SecondFragment : Fragment() {
             val patch = CloudlinkPatch(exchange.handle)
             api.updateCloudlink(cloudlink.code, patch)
 
+            activity.exchangeHandle = exchange.handle
+
             System.out.println("🌵 Exchange added to cloudlink, clients should stop polling the cloudlink")
         }
     }
@@ -52,7 +53,7 @@ class SecondFragment : Fragment() {
             savedInstanceState: Bundle?
     ): View? {
 
-        _binding = FragmentSecondBinding.inflate(inflater, container, false)
+        _binding = FragmentScannerBinding.inflate(inflater, container, false)
 
         cam = CameraStuff(
             activity as MainActivity,
